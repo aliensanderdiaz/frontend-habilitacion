@@ -1,0 +1,46 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col">
+      <h3>Menú</h3>
+      <ul class="list-group">
+        <a routerLink="/cuentas-contables" class="list-group-item">Cuentas Contables</a>
+        <a routerLink="/impuestos" class="list-group-item">Impuestos</a>
+      </ul>
+    </div>
+  </div>
+
+  <!--
+    <hr>
+    <hr>
+    <hr>
+
+    <div class="row">
+      <div class="col">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <input type="text" formControlName="telefono" class="form-control" >
+          <input type="number" formControlName="telefono" class="form-control" onkeyup="return event.charCode > 47 && event.charCode < 58" min="1" >
+          <input type="tel" formControlName="telefono" class="form-control" (keypress)="evaluar( $event )" (keydown)="evaluarDown( $event )">
+
+            <input
+              type="number"
+              inputmode="numeric"
+              formControlName="telefono"
+              class="form-control"
+              (keydown)="evaluarDown( $event )"
+              (keypress)="evaluar( $event )"
+              (keyup)="evaluarUp( $event )">
+          <button [disabled]="myForm.invalid" class="btn btn-primary mt-4" type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+  -->
+
+
+  <hr>
+  <hr>
+  <hr>
+
+  <input type="text" class="form-control" (keydown)="onInput( $event )">
+  <button class="btn btn-primary">Imprimir</button>
+  <p>{{ valor }}</p>
+</div>

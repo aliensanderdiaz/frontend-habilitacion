@@ -1,0 +1,67 @@
+<div class="container mt-2">
+
+  <div class="row">
+    <div class="col">
+      <h3>Cuentas contables</h3>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col" *ngIf="cuentaSeleccionada">
+      <h5>{{ cuentaSeleccionada.code }} - {{ cuentaSeleccionada.name }}</h5>
+      <div class="row">
+        <div class="col-2">
+          <input type="text" class="form-control" [(ngModel)]="codigoCuentaPrincipal">
+        </div>
+        <div class="col-4">
+          <input type="text" class="form-control" [(ngModel)]="nombreCuentaPrincipal">
+        </div>
+        <div class="col-4">
+          <button class="btn btn-secondary" (click)="crearCuentaPrincipal()">Crear Cuenta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row border-bottom" *ngFor="let categoria of cuentasContables">
+    <div class="col-12">
+      <div class="row border-bottom">
+        <div class="col-2">
+          <p (click)="elegirParent( categoria )">{{ categoria.code }} - {{ categoria.name }}</p>
+        </div>
+        <div class="col-10">
+          <div class="row border-bottom" *ngFor="let subcategoria1 of categoria.children">
+            <div class="col-3">
+              <p (click)="elegirParent( subcategoria1 )">{{ subcategoria1.code }} - {{ subcategoria1.name }}</p>
+            </div>
+            <div class="col-9">
+              <div class="row border-bottom" *ngFor="let subcategoria2 of subcategoria1.children">
+                <div class="col-4">
+                  <p (click)="elegirParent( subcategoria2 )">{{ subcategoria2.code }} - {{ subcategoria2.name }}</p>
+                </div>
+                <div class="col-8">
+                  <div class="row border-bottom" *ngFor="let subcategoria3 of subcategoria2.children">
+                    <div class="col-5">
+                      <p (click)="elegirParent( subcategoria3 )">{{ subcategoria3.code }} - {{ subcategoria3.name }}</p>
+                    </div>
+                    <div class="col-7">
+                      <div class="row border-bottom" *ngFor="let subcategoria4 of subcategoria3.children">
+                        <div class="col">
+                          <p (click)="elegirParent( subcategoria4 )">{{ subcategoria4.code }} - {{ subcategoria4.name }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

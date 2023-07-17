@@ -1,0 +1,132 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col">
+      <h3>Impuestos</h3>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <input type="text" [(ngModel)]="code" class="form-control" placeholder="code">
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <input type="text" [(ngModel)]="name" class="form-control" placeholder="name">
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <input type="number" [(ngModel)]="tarifa" class="form-control" placeholder="tarifa">
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <select class="form-select" [(ngModel)]="tipo">
+        <option *ngFor="let tipo of tiposDeImpuesto" [value]="tipo">{{ tipo }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <select class="form-select" [(ngModel)]="accountSales">
+        <option *ngFor="let tipo of cuentas" [value]="tipo._id">{{ tipo.code }} - {{ tipo.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <select class="form-select" [(ngModel)]="accountShopping">
+        <option *ngFor="let tipo of cuentas" [value]="tipo._id">{{ tipo.code }} - {{ tipo.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <select class="form-select" [(ngModel)]="accountSalesReturn">
+        <option *ngFor="let tipo of cuentas" [value]="tipo._id">{{ tipo.code }} - {{ tipo.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <select class="form-select" [(ngModel)]="accountShoppingReturn">
+        <option *ngFor="let tipo of cuentas" [value]="tipo._id">{{ tipo.code }} - {{ tipo.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col">
+      <button class="btn btn-secondary" (click)="crearImpuesto()">Crear Impuesto</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mt-2 text-center">
+    <div class="col-1 border">
+      <strong>Código</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Nombre</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Tipo</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Tarifa</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Ventas</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Compras</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Devolución ventas</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Devolución Compras</strong>
+    </div>
+  </div>
+
+  <div class="row mt-2" *ngFor="let impuesto of impuestos">
+    <div class="col-1 border">
+      <small>{{ impuesto.code }}</small>
+    </div>
+    <div class="col-1 border">
+      <small>{{ impuesto.name }}</small>
+    </div>
+    <div class="col-1 border">
+      <small>{{ impuesto.tipo }}</small>
+    </div>
+    <div class="col-1 border">
+      <small>{{ impuesto.tarifa }}</small>
+    </div>
+    <div class="col-2 border">
+      <small>{{ impuesto.accountSales.code }} - {{ impuesto.accountSales.name }}</small>
+    </div>
+    <div class="col-2 border">
+      <small>{{ impuesto.accountShopping.code }} - {{ impuesto.accountShopping.name }}</small>
+    </div>
+    <div class="col-2 border">
+      <small>{{ impuesto.accountSalesReturn.code }} - {{ impuesto.accountSalesReturn.name }}</small>
+    </div>
+    <div class="col-2 border">
+      <small>{{ impuesto.accountShoppingReturn.code }} - {{ impuesto.accountShoppingReturn.name }}</small>
+    </div>
+  </div>
+
+
+
+
+</div>
