@@ -9,6 +9,10 @@ import { CrearCuentaContableComponent } from './pages/cuentas-contables/crear-cu
 import { MenuComponent } from './pages/menu/menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
+import { VentasComponent } from './pages/ventas/ventas.component';
+import { VentaComponent } from './pages/ventas/venta/venta.component';
+import { TercerosComponent } from './pages/terceros/terceros.component';
+import { TerceroComponent } from './pages/terceros/tercero/tercero.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { ImpuestosComponent } from './pages/impuestos/impuestos.component';
     CuentasContablesComponent,
     CrearCuentaContableComponent,
     MenuComponent,
-    ImpuestosComponent
+    ImpuestosComponent,
+    VentasComponent,
+    VentaComponent,
+    TercerosComponent,
+    TerceroComponent
   ],
   imports: [
     BrowserModule,

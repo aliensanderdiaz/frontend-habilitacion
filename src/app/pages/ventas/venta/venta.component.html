@@ -1,0 +1,226 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-11">
+      <h3>Factura de Venta</h3>
+    </div>
+    <div class="col-1">
+      <a routerLink="/ventas" class="btn btn-secondary">Volver</a>
+    </div>
+  </div>
+
+  <hr>
+
+  <div *ngIf="venta">
+    <div class="row">
+      <div class="col">
+        <h4>Datos del Cliente</h4>
+        <p>
+          <strong>Nombre: </strong>
+          <a [routerLink]="['/terceros', venta.clienteId]">{{ venta.clienteSnapshot.nombre }}</a>
+          <br>
+          <strong>{{ venta.clienteSnapshot.tipoDocumentoName }}: </strong>
+          {{ venta.clienteSnapshot.numeroId | number }}
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col">
+        <h4>Datos del Documento</h4>
+        <p>
+          <strong>Fecha - Hora: </strong>
+          {{ venta.date }} - {{ venta.time }}
+          <br>
+          <strong>Número de Factura</strong>
+          {{ venta.numeroDeFacturaConPrefijo }}
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col">
+        <h4>Productos</h4>
+        <div class="row text-center">
+          <div class="col-1">
+
+          </div>
+          <div class="col-1">
+            <strong>Cantidad</strong>
+          </div>
+          <div class="col-6">
+            <strong>Descripción</strong>
+          </div>
+          <div class="col-1">
+            <strong>Precio</strong>
+          </div>
+          <div class="col-1">
+            <strong>Impuesto</strong>
+          </div>
+          <div class="col-1">
+            <strong>Retención</strong>
+          </div>
+          <div class="col-1">
+            <strong>Total</strong>
+          </div>
+        </div>
+
+        <div class="row" *ngFor="let linea of venta.lineas; let i = index">
+          <div class="col-1 text-center">
+            <strong>{{ i + 1 }}</strong>
+          </div>
+          <div class="col-1 text-center">
+            <small>{{ linea.cantidad }}</small>
+          </div>
+          <div class="col-6">
+            <small>{{ linea.nombre }}</small>
+          </div>
+          <div class="col-1 text-end">
+            <small>{{ linea.unidadConIva | currency:'':'symbol':'1.0-0' }}</small>
+          </div>
+          <div class="col-1">
+            <small>Implementar</small>
+          </div>
+          <div class="col-1">
+            <small>Implementar</small>
+          </div>
+          <div class="col-1 text-end">
+            <small>{{ linea.cantidadPorPrecioConIva | currency:'':'symbol':'1.0-0' }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col">
+        <h4 class="text-center">Medios de Pago</h4>
+
+        <div class="row" *ngFor="let medioDePago of venta.mediosDePago">
+          <div class="col-6"></div>
+          <div class="col">
+            <strong>{{ medioDePago.name }}</strong>
+          </div>
+          <div class="col text-end">
+            {{ medioDePago.total | currency:'':'symbol':'1.0-0' }}
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+      </div>
+      <div class="col">
+        <h4 class="text-center">Totales</h4>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Total Bruto</strong>
+          </div>
+          <div class="col text-end">
+            Implementar
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Descuentos</strong>
+          </div>
+          <div class="col text-end">
+            Implementar
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Subtotal</strong>
+          </div>
+          <div class="col text-end">
+            {{ venta.subtotal | currency:'':'symbol':'1.0-0' }}
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Impuestos</strong>
+          </div>
+          <div class="col text-end">
+            Implementar Array
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Total Neto</strong>
+          </div>
+          <div class="col text-end">
+            {{ venta.total | currency:'':'symbol':'1.0-0' }}
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Retenciones</strong>
+          </div>
+          <div class="col text-end">
+            Implementar Array
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>ReteICA</strong>
+          </div>
+          <div class="col text-end">
+            Implementar
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col">
+            <strong>Total a Pagar</strong>
+          </div>
+          <div class="col text-end">
+            Implementar
+          </div>
+          <div class="col-2"></div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <pre>{{ venta | json }}</pre>
+    </div>
+  </div>
+</div>

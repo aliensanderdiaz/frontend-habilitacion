@@ -5,6 +5,8 @@
       <ul class="list-group">
         <a routerLink="/cuentas-contables" class="list-group-item">Cuentas Contables</a>
         <a routerLink="/impuestos" class="list-group-item">Impuestos</a>
+        <a routerLink="/ventas" class="list-group-item">Ventas</a>
+        <a routerLink="/terceros" class="list-group-item">Terceros</a>
       </ul>
     </div>
   </div>
@@ -33,14 +35,14 @@
         </form>
       </div>
     </div>
+
+
+    <hr>
+    <hr>
+    <hr>
+
+    <input type="text" class="form-control" (keydown)="onInput( $event )">
+    <button class="btn btn-primary">Imprimir</button>
+    <p>{{ valor }}</p>
   -->
-
-
-  <hr>
-  <hr>
-  <hr>
-
-  <input type="text" class="form-control" (keydown)="onInput( $event )">
-  <button class="btn btn-primary">Imprimir</button>
-  <p>{{ valor }}</p>
 </div>

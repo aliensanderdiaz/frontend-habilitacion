@@ -1,0 +1,54 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col"><h3>Facturas de Venta</h3></div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-2 border">
+      <strong>No. Factura</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Fecha</strong>
+      <br>
+      <strong>Hora</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Identificación</strong>
+    </div>
+    <div class="col-4 border">
+      <strong>Cliente</strong>
+    </div>
+    <div class="col-2 border">
+      <strong>Total</strong>
+    </div>
+  </div>
+
+  <div class="row text-end" *ngFor="let factura of ventas">
+    <div class="col-2 border">
+      <a [routerLink]="factura._id">
+        {{ factura.numeroDeFacturaConPrefijo }}
+      </a>
+    </div>
+    <div class="col-2 border">
+      {{ factura.date }}
+      <br>
+      {{ factura.time }}
+    </div>
+    <div class="col-2 border">
+      {{ factura.clienteSnapshot?.numeroId | number }}
+    </div>
+    <div class="col-4 border">
+      <a [routerLink]="['/terceros', factura.clienteId]">
+        {{ factura.clienteSnapshot?.nombre }}
+      </a>
+    </div>
+    <div class="col-2 border">
+      {{ factura.total | currency }}
+    </div>
+  </div>
+
+  <!-- <div class="row" *ngFor="let factura of ventas">
+    <pre>{{ factura | json }}</pre>
+  </div> -->
+
+</div>
