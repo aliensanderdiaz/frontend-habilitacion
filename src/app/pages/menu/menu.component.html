@@ -11,6 +11,28 @@
     </div>
   </div>
 
+
+  <hr>
+  <hr>
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <input type="tel" [ngModel]="value | phoneInput" (ngModelChange)="value = $event">
+    </div>
+  </div>
+
+
+  <hr>
+  <hr>
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <input type="tel" [(ngModel)]="value" appPhoneInput>
+    </div>
+  </div>
+
   <!--
     <hr>
     <hr>

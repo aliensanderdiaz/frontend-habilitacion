@@ -8,6 +8,7 @@ import { VentasComponent } from './pages/ventas/ventas.component';
 import { VentaComponent } from './pages/ventas/venta/venta.component';
 import { TercerosComponent } from './pages/terceros/terceros.component';
 import { TerceroComponent } from './pages/terceros/tercero/tercero.component';
+import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 
 const routes: Routes = [
   { path: 'menu', component: MenuComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'cuentas-contables/crear', component: CrearCuentaContableComponent },
   { path: 'impuestos', component: ImpuestosComponent },
   { path: 'ventas', component: VentasComponent },
+  { path: 'ventas/crear-venta', component: CrearVentaComponent },
   { path: 'ventas/:id', component: VentaComponent },
   { path: 'terceros', component: TercerosComponent },
   { path: 'terceros/:id', component: TerceroComponent },

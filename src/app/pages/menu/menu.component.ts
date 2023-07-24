@@ -14,6 +14,7 @@ function dummyValidator(control: FormControl) {
 })
 export class MenuComponent implements OnDestroy, OnInit {
 
+  value = '3138984679'
   valor = 'fernAndo'
 
   // public myForm: FormGroup = this.fb.group({

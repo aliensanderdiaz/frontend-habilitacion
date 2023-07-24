@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h3>Crear Venta</h3>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" [(ngModel)]="descuentoEnPorcentaje">
+    <label class="form-check-label">
+      El valor de los descuentos esta escrito en porcentajes.
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" [(ngModel)]="impuestoIncluido">
+    <label class="form-check-label">
+      El valor de cada producto incluye el impuesto.
+    </label>
+  </div>
+
+  <hr>
+
+  <div class="row text-center">
+    <div class="col">
+      <strong>PLU</strong>
+    </div>
+    <div class="col-4">
+      <strong>Producto</strong>
+    </div>
+    <div class="col">
+      <strong>Cantidad</strong>
+    </div>
+    <div class="col">
+      <strong>Precio</strong>
+    </div>
+    <div class="col">
+      <strong>Descuento 1</strong>
+    </div>
+    <div class="col">
+      <strong>Descuento 2</strong>
+    </div>
+    <div class="col">
+      <strong>Impuesto</strong>
+    </div>
+    <div class="col">
+      <strong>Retención</strong>
+    </div>
+    <div class="col">
+      <strong></strong>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <input [(ngModel)]="lineaTemp.plu" type="text" class="form-control">
+    </div>
+    <div class="col-4">
+      <input [(ngModel)]="lineaTemp.producto" type="text" class="form-control">
+    </div>
+    <div class="col">
+      <input [(ngModel)]="lineaTemp.cantidad" type="number" class="form-control">
+    </div>
+    <div class="col">
+      <input [(ngModel)]="lineaTemp.precio" type="number" class="form-control">
+    </div>
+    <div class="col">
+      <input [(ngModel)]="lineaTemp.descuento1" type="number" class="form-control">
+    </div>
+    <div class="col">
+      <input [(ngModel)]="lineaTemp.descuento2" type="number" class="form-control">
+    </div>
+    <div class="col">
+      <select class="form-select" [(ngModel)]="lineaTemp.impuesto">
+        <option *ngFor="let impuesto of impuestos" value="impuesto">{{ impuesto }}</option>
+      </select>
+    </div>
+    <div class="col">
+      <select class="form-select" [(ngModel)]="lineaTemp.retencion">
+        <option *ngFor="let retencion of retenciones" value="retencion">{{ retencion }}</option>
+      </select>
+    </div>
+    <div class="col">
+      <strong><button class="btn btn-secondary"> + </button></strong>
+    </div>
+  </div>
+
+</div>

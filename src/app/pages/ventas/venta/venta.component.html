@@ -81,11 +81,11 @@
           <div class="col-1 text-end">
             <small>{{ linea.unidadConIva | currency:'':'symbol':'1.0-0' }}</small>
           </div>
-          <div class="col-1">
-            <small>Implementar</small>
+          <div class="col-1 text-end">
+            <small>{{ linea.impuesto.name }}</small>
           </div>
-          <div class="col-1">
-            <small>Implementar</small>
+          <div class="col-1 text-end">
+            <small>{{ linea.retencion ? linea.retencion.name : 'Ninguna'}}</small>
           </div>
           <div class="col-1 text-end">
             <small>{{ linea.cantidadPorPrecioConIva | currency:'':'symbol':'1.0-0' }}</small>
