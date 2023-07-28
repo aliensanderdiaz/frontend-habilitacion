@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-impuestos',
@@ -29,7 +30,8 @@ export class ImpuestosComponent implements OnInit {
   impuestos: any[] = []
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit(): void {
@@ -38,21 +40,39 @@ export class ImpuestosComponent implements OnInit {
   }
 
   cargarCuentas() {
+    if (this.cuentas.length > 0) {
+      return
+    }
+    let cuentasString = this.storageService.obtener('cuentas')
+    if (cuentasString) {
+      this.cuentas = JSON.parse( cuentasString )
+      return
+    }
     this.apiService.peticionGet('api/v1/accounts')
       .subscribe({
         next: (response: any) => {
           console.log({ response })
           this.cuentas = response.data
+          this.storageService.guardar('cuentas', JSON.stringify(this.cuentas))
         }
       })
   }
 
   cargarImpuestos() {
+    if (this.impuestos.length > 0) {
+      return
+    }
+    let impuestosString = this.storageService.obtener('impuestos')
+    if (impuestosString) {
+      this.impuestos = JSON.parse( impuestosString )
+      return
+    }
     this.apiService.peticionGet('api/v1/impuestos')
       .subscribe({
         next: (response: any) => {
           console.log({ response })
           this.impuestos = response.data
+          this.storageService.guardar('impuestos', JSON.stringify(this.impuestos))
         }
       })
   }

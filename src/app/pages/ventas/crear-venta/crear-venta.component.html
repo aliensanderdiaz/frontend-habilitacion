@@ -32,14 +32,14 @@
     <div class="col">
       <strong>Cantidad</strong>
     </div>
-    <div class="col">
-      <strong>Precio</strong>
+    <div class="col-2">
+      <strong>Valor</strong>
     </div>
     <div class="col">
-      <strong>Descuento 1</strong>
+      <strong>Desc. 1</strong>
     </div>
     <div class="col">
-      <strong>Descuento 2</strong>
+      <strong>Desc. 2</strong>
     </div>
     <div class="col">
       <strong>Impuesto</strong>
@@ -53,18 +53,50 @@
   </div>
   <hr>
 
+
+  <div class="row" *ngFor="let item of lineas">
+    <div class="col text-end">
+      <span>{{ item.plu }}</span>
+    </div>
+    <div class="col-4">
+      <span>{{ item.nombre }}</span>
+    </div>
+    <div class="col text-end">
+      <span>{{ item.cantidad }}</span>
+    </div>
+    <div class="col-2 text-end">
+      <span>{{ item.valor | currency:'':'symbol':'1.0-0' }}</span>
+    </div>
+    <div class="col text-end">
+      <span>{{ item.descuento1 }}</span>
+    </div>
+    <div class="col text-end">
+      <span>{{ item.descuento2 }}</span>
+    </div>
+    <div class="col">
+      <span>'Impuesto'</span>
+    </div>
+    <div class="col">
+      <span>'Retención'</span>
+    </div>
+    <div class="col">
+      <span></span>
+    </div>
+  </div>
+  <hr>
+
   <div class="row">
     <div class="col">
       <input [(ngModel)]="lineaTemp.plu" type="text" class="form-control">
     </div>
     <div class="col-4">
-      <input [(ngModel)]="lineaTemp.producto" type="text" class="form-control">
+      <input [(ngModel)]="lineaTemp.nombre" type="text" class="form-control">
     </div>
     <div class="col">
       <input [(ngModel)]="lineaTemp.cantidad" type="number" class="form-control">
     </div>
-    <div class="col">
-      <input [(ngModel)]="lineaTemp.precio" type="number" class="form-control">
+    <div class="col-2">
+      <input [(ngModel)]="lineaTemp.valor" type="number" class="form-control">
     </div>
     <div class="col">
       <input [(ngModel)]="lineaTemp.descuento1" type="number" class="form-control">
@@ -74,7 +106,7 @@
     </div>
     <div class="col">
       <select class="form-select" [(ngModel)]="lineaTemp.impuesto">
-        <option *ngFor="let impuesto of impuestos" value="impuesto">{{ impuesto }}</option>
+        <option *ngFor="let impuesto of impuestos" [value]="impuesto._id">{{ impuesto.name }}</option>
       </select>
     </div>
     <div class="col">
@@ -83,7 +115,13 @@
       </select>
     </div>
     <div class="col">
-      <strong><button class="btn btn-secondary"> + </button></strong>
+      <strong><button class="btn btn-secondary" (click)="agregarItem()"> + </button></strong>
+    </div>
+  </div>
+
+  <div class="row mt-4" *ngIf="lineas.length > 0">
+    <div class="col">
+      <button class="btn btn-secondary" (click)="crearFactura()">Crear Factura</button>
     </div>
   </div>
 
