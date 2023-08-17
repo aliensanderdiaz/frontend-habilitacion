@@ -9,6 +9,8 @@ import { VentaComponent } from './pages/ventas/venta/venta.component';
 import { TercerosComponent } from './pages/terceros/terceros.component';
 import { TerceroComponent } from './pages/terceros/tercero/tercero.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
+import { FormasDePagoComponent } from './pages/formas-de-pago/formas-de-pago.component';
+import { CrearFormarDePagoComponent } from './pages/formas-de-pago/crear-formar-de-pago/crear-formar-de-pago.component';
 
 const routes: Routes = [
   { path: 'menu', component: MenuComponent },
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'ventas/:id', component: VentaComponent },
   { path: 'terceros', component: TercerosComponent },
   { path: 'terceros/:id', component: TerceroComponent },
+  { path: 'formas-de-pago', component: FormasDePagoComponent },
+  { path: 'formas-de-pago/crear-forma-de-pago', component: CrearFormarDePagoComponent },
   { path: '**', redirectTo: 'menu'}
 ];
 

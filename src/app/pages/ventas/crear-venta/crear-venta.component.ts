@@ -10,11 +10,15 @@ import { StorageService } from 'src/app/services/storage.service';
 export class CrearVentaComponent implements OnInit {
   private storageService = inject(StorageService)
   private apiService = inject(ApiService)
-  public impuestoIncluido = true
+  public impuestoIncluido = false
   public descuentoEnPorcentaje = true
 
   public impuestos: any[] = []
   public retenciones: any[] = []
+  public formasDePago: any[] = []
+
+  public formaDePagoElegida!: string
+  public totalFormaDePagoTemp = 0
 
   public lineaTemp = {
     plu: undefined,
@@ -29,10 +33,26 @@ export class CrearVentaComponent implements OnInit {
 
   public lineas: any[] = []
 
+  public totalBruto = 0
+  public descuentos = 0
+  public subtotal = 0
+  public impuestosFactura: any[] = []
+  public totalImpuestos = 0
+  public totalNeto = 0
+  public retencionesFactura: any[] = []
+  public totalRetenciones = 0
+  public totalPagar = 0
+
   ngOnInit(): void {
     const impuestosString = this.storageService.obtener('impuestos')
     if (impuestosString) {
-      this.impuestos = JSON.parse(impuestosString)
+      const impuestos = JSON.parse(impuestosString)
+      this.impuestos = impuestos.filter((item: any) => item.tipo === 'IVA' || item.tipo === 'Impoconsumo')
+      this.retenciones = impuestos.filter((item: any) => item.tipo === 'Retefuente')
+    }
+    const formasDePagoString = this.storageService.obtener('formasDePago')
+    if (formasDePagoString) {
+      this.formasDePago = JSON.parse(formasDePagoString)
     }
   }
 
@@ -70,41 +90,106 @@ export class CrearVentaComponent implements OnInit {
         return
       }
     } else {
-      if (descuento1 < 0  || descuento2 < 0 || descuento1 + descuento2 > valor) {
+      if (descuento1 < 0 || descuento2 < 0 || descuento1 + descuento2 > valor) {
         alert('Error en los descuentos, mayor que el precio')
         return
       }
     }
 
-    console.log({
-      lineaTemp: this.lineaTemp
-    })
-
     // INICIO CALCULAR VALOR UNITARIO SIN IMPUESTO
 
     const impuestoObjeto = this.impuestos.find(item => item._id === impuesto)
-    const impuestoTarifa = impuestoObjeto.tarifa
+    const impuestoTarifa = impuestoObjeto?.tarifa || 0
 
-    let valorUnitarioSinImpuesto = undefined
+    let valorUnitarioBruto = undefined
 
     if (this.impuestoIncluido) {
-      let valorImpuestoTemporalUnitario = Math.floor( (valor * impuestoTarifa / (100 + impuestoTarifa)) * 100 ) / 100
-      console.log({ valorImpuestoTemporalUnitario })
-      valorUnitarioSinImpuesto = Math.floor( ( valor - valorImpuestoTemporalUnitario ) * 100 ) / 100
+      let valorImpuestoTemporalUnitario = Number((valor * impuestoTarifa / (100 + impuestoTarifa) ).toFixed(2))
+      valorUnitarioBruto = Math.floor((valor - valorImpuestoTemporalUnitario) * 100) / 100
     } else {
-      valorUnitarioSinImpuesto = valor
+      valorUnitarioBruto = valor
     }
-
-    console.log({ valorUnitarioSinImpuesto })
 
     // FIN CALCULAR VALOR UNITARIO SIN IMPUESTO
 
-    const lineaTemp = {...this.lineaTemp}
+    // INICIO Descuentos
 
-    this.lineas.push(lineaTemp)
+    let valorDescuento1 = 0
+    let valorDescuento2 = 0
+
+    if (this.descuentoEnPorcentaje) {
+      valorDescuento1 = Number(((valorUnitarioBruto * descuento1 / 100)).toFixed(2))
+      let valorUnitarioConDescuento1 = Number((valorUnitarioBruto - valorDescuento1).toFixed(2))
+      valorDescuento2 = Number(((valorUnitarioConDescuento1 * descuento2 / 100)).toFixed(2))
+    } else {
+      valorDescuento1 = descuento1
+      valorDescuento2 = descuento2
+    }
+
+    const valorUnitarioDescuentos = Number((valorDescuento1 + valorDescuento2).toFixed(2))
+
+    // FIN Descuentos
+
+    const valorUnitarioBase = Number((valorUnitarioBruto - valorUnitarioDescuentos).toFixed(2))
+
+    const valorUnitarioImpuesto = Number((valorUnitarioBase * impuestoTarifa / 100).toFixed(2))
+    const valorUnitarioTotal = Number((valorUnitarioBase + valorUnitarioImpuesto).toFixed(2))
+
+    const retencionObjeto = this.retenciones.find(item => item._id === retencion)
+    const retencionTarifa = retencionObjeto?.tarifa || 0
+
+    const valorUnitarioRetencion = Number((valorUnitarioBase * retencionTarifa / 100).toFixed(2))
+    const valorUnitarioTotalAPagar = Number((valorUnitarioTotal - valorUnitarioRetencion).toFixed(2))
+
+    const valorBruto = Number((valorUnitarioBruto * cantidad).toFixed(2))
+    const valorDescuentos = Number((valorUnitarioDescuentos * cantidad).toFixed(2))
+    const valorBase = Number((valorUnitarioBase * cantidad).toFixed(2))
+    const valorImpuesto = Number((valorUnitarioImpuesto * cantidad).toFixed(2))
+    const valorTotal = Number((valorUnitarioTotal * cantidad).toFixed(2))
+
+    const valorRetencion = Number((valorUnitarioRetencion * cantidad).toFixed(2))
+    const valorTotalAPagar = Number((valorUnitarioTotalAPagar * cantidad).toFixed(2))
+
+    let lineaConTodosLosValores = {
+
+      plu,
+      nombre,
+
+      impuesto,
+      impuestoTarifa,
+
+      retencion,
+      retencionTarifa,
+
+      cantidad,
+      valorIngresado: valor,
+      descuentoIngresado1: descuento1,
+      descuentoIngresado2: descuento2,
+
+      valorUnitarioBruto,
+      valorUnitarioDescuentos,
+      valorUnitarioBase,
+      valorUnitarioImpuesto,
+      valorUnitarioTotal,
+
+      valorUnitarioRetencion,
+      valorUnitarioTotalAPagar,
+
+      valorBruto,
+      valorDescuentos,
+      valorBase,
+      valorImpuesto,
+      valorTotal,
+
+      valorRetencion,
+      valorTotalAPagar,
+    }
+
+    this.lineas.push(lineaConTodosLosValores)
 
     this.resetLineaTemp()
 
+    this.calcularTotales()
 
   }
 
@@ -204,4 +289,101 @@ export class CrearVentaComponent implements OnInit {
         }
       })
   }
+
+  calcularTotales() {
+    this.totalBruto = this.lineas
+                        .map(linea => linea.valorBruto)
+                        .reduce((a, b) => a + b, 0)
+
+    this.totalBruto = Number(this.totalBruto.toFixed(2))
+
+    this.calcularDescuentos()
+
+    this.subtotal = Number(( this.totalBruto - this.descuentos ).toFixed(2))
+    this.calcularImpuestos()
+    this.totalNeto = Number(( this.subtotal + this.totalImpuestos ).toFixed(2))
+
+    this.calcularRetenciones()
+    this.totalPagar = Number(( this.totalNeto - this.totalRetenciones ).toFixed(2))
+
+    console.log({
+      'this.totalBruto': this.totalBruto,
+      'this.descuentos': this.descuentos,
+      'this.subtotal': this.subtotal,
+      'this.totalImpuestos': this.totalImpuestos,
+      'this.totalNeto': this.totalNeto,
+      'this.totalRetenciones': this.totalRetenciones,
+      'this.totalPagar': this.totalPagar,
+    })
+  }
+
+  calcularDescuentos() {
+    if (this.lineas.length === 0) {
+      this.descuentos = 0
+      return
+    }
+    this.descuentos = this.lineas
+                        .map(linea => linea.valorDescuentos)
+                        .reduce((a, b) => a + b, 0)
+
+    this.descuentos = Number(this.descuentos.toFixed(2))
+  }
+
+  calcularImpuestos() {
+    this.impuestosFactura = []
+    if (this.lineas.length === 0) {
+      this.impuestosFactura = []
+      return
+    }
+    const impuestosEnLineas = this.lineas.map(linea => linea.impuesto)
+    const impuestosNoRepeat: any[] = [...new Set(impuestosEnLineas)]
+
+    for (const impuesto of impuestosNoRepeat) {
+      const impuestosFilter = this.lineas.filter(item => item.impuesto === impuesto)
+      let impuestosTotal = impuestosFilter.map(linea => linea.valorImpuesto).reduce((a, b) => a + b, 0)
+      impuestosTotal = Number(impuestosTotal.toFixed(2))
+
+      let impuestoObject = {
+        impuesto: impuesto,
+        impuestoName: this.impuestos.find(item => item._id === impuesto)['name'],
+        valor: impuestosTotal
+      }
+
+      this.impuestosFactura.push( impuestoObject )
+    }
+
+    this.totalImpuestos =  this.impuestosFactura.map(item => item.valor).reduce((a, b) => a + b, 0)
+    this.totalImpuestos = Number(this.totalImpuestos.toFixed(2))
+  }
+
+  calcularRetenciones() {
+    this.retencionesFactura = []
+    if (this.lineas.length === 0) {
+      this.retencionesFactura = []
+      return
+    }
+
+    const retencionesEnLineas = this.lineas.map(linea => linea.retencion).filter(retencion => retencion)
+    const retencionesNoRepeat: any[] = [...new Set(retencionesEnLineas)]
+
+    console.log({ retencionesEnLineas, retencionesNoRepeat })
+
+    for (const retencion of retencionesNoRepeat) {
+      const retencionesFilter = this.lineas.filter(item => item.retencion === retencion)
+      let retencionesTotal = retencionesFilter.map(linea => linea.valorRetencion).reduce((a, b) => a + b, 0)
+      retencionesTotal = Number(retencionesTotal.toFixed(2))
+
+      let retencionObject = {
+        retencion: retencion,
+        retencionName: this.retenciones.find(item => item._id === retencion)['name'],
+        valor: retencionesTotal
+      }
+
+      this.retencionesFactura.push( retencionObject )
+    }
+
+    this.totalRetenciones =  this.retencionesFactura.map(item => item.valor).reduce((a, b) => a + b, 0)
+    this.totalRetenciones = Number(this.totalRetenciones.toFixed(2))
+  }
+
 }

@@ -16,6 +16,8 @@ import { TerceroComponent } from './pages/terceros/tercero/tercero.component';
 import { CrearVentaComponent } from './pages/ventas/crear-venta/crear-venta.component';
 import { PhoneInputPipe } from './phone-input.pipe';
 import { PhoneInputDirective } from './phone-input.directive';
+import { FormasDePagoComponent } from './pages/formas-de-pago/formas-de-pago.component';
+import { CrearFormarDePagoComponent } from './pages/formas-de-pago/crear-formar-de-pago/crear-formar-de-pago.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { PhoneInputDirective } from './phone-input.directive';
     TerceroComponent,
     CrearVentaComponent,
     PhoneInputPipe,
-    PhoneInputDirective
+    PhoneInputDirective,
+    FormasDePagoComponent,
+    CrearFormarDePagoComponent
   ],
   imports: [
     BrowserModule,

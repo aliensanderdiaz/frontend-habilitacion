@@ -22,100 +22,244 @@
 
   <hr>
 
+  <div class="row border">
+    <div class="col border text-center">col01</div>
+    <div class="col border text-center">col02</div>
+    <div class="col border text-center">col03</div>
+    <div class="col border text-center">col04</div>
+    <div class="col border text-center">col05</div>
+    <div class="col border text-center">col06</div>
+    <div class="col border text-center">col07</div>
+    <div class="col border text-center">col08</div>
+    <div class="col border text-center">col09</div>
+    <div class="col border text-center">col10</div>
+    <div class="col border text-center">col11</div>
+    <div class="col border text-center">col12</div>
+  </div>
+
+  <hr>
+
+  <div class="row text-center" *ngIf="lineas.length > 0">
+    <div class="col-3 border">
+      <strong>PLU</strong> | <strong>Producto</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Cantidad</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Valor</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Desc. 1</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Desc. 2</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Impuesto</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Retención</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Bruto</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Base</strong>
+    </div>
+    <div class="col-1 border">
+      <strong>Total</strong>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" *ngFor="let item of lineas">
+    <div class="col-3 border">
+      <strong>{{ item.plu }}</strong> |
+      <span>{{ item.nombre }}</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.cantidad }}</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.valorIngresado | currency:'':'symbol':'1.0-0' }}</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.descuentoIngresado1 }}%</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.descuentoIngresado2 }}%</span>
+    </div>
+    <div class="col-1 border">
+      <span>{{ item.impuestoTarifa }}%</span>
+    </div>
+    <div class="col-1 border">
+      <span>{{ item.retencionTarifa || 'NA' }}%</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.valorUnitarioBruto | currency:'':'symbol':'1.0-0' }}</span>
+      <br>
+      <span>{{ item.valorBruto | currency:'':'symbol':'1.0-0' }}</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.valorUnitarioBase | currency:'':'symbol':'1.0-0' }}</span>
+      <br>
+      <span>{{ item.valorBase | currency:'':'symbol':'1.0-0' }}</span>
+    </div>
+    <div class="col-1 border text-end">
+      <span>{{ item.valorUnitarioTotal | currency:'':'symbol':'1.0-0' }}</span>
+      <br>
+      <span>{{ item.valorTotal | currency:'':'symbol':'1.0-0' }}</span>
+    </div>
+  </div>
+
+  <hr>
+
   <div class="row text-center">
-    <div class="col">
+    <div class="col-1">
       <strong>PLU</strong>
     </div>
-    <div class="col-4">
+    <div class="col-3">
       <strong>Producto</strong>
     </div>
-    <div class="col">
+    <div class="col-1">
       <strong>Cantidad</strong>
     </div>
     <div class="col-2">
       <strong>Valor</strong>
     </div>
-    <div class="col">
+    <div class="col-1">
       <strong>Desc. 1</strong>
     </div>
-    <div class="col">
+    <div class="col-1">
       <strong>Desc. 2</strong>
     </div>
-    <div class="col">
+    <div class="col-1">
       <strong>Impuesto</strong>
     </div>
-    <div class="col">
+    <div class="col-1">
       <strong>Retención</strong>
     </div>
-    <div class="col">
+    <div class="col-1">
       <strong></strong>
     </div>
   </div>
-  <hr>
 
-
-  <div class="row" *ngFor="let item of lineas">
-    <div class="col text-end">
-      <span>{{ item.plu }}</span>
-    </div>
-    <div class="col-4">
-      <span>{{ item.nombre }}</span>
-    </div>
-    <div class="col text-end">
-      <span>{{ item.cantidad }}</span>
-    </div>
-    <div class="col-2 text-end">
-      <span>{{ item.valor | currency:'':'symbol':'1.0-0' }}</span>
-    </div>
-    <div class="col text-end">
-      <span>{{ item.descuento1 }}</span>
-    </div>
-    <div class="col text-end">
-      <span>{{ item.descuento2 }}</span>
-    </div>
-    <div class="col">
-      <span>'Impuesto'</span>
-    </div>
-    <div class="col">
-      <span>'Retención'</span>
-    </div>
-    <div class="col">
-      <span></span>
-    </div>
-  </div>
   <hr>
 
   <div class="row">
-    <div class="col">
-      <input [(ngModel)]="lineaTemp.plu" type="text" class="form-control">
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <input [(ngModel)]="lineaTemp.plu" type="text" class="form-control">
+      </div>
     </div>
-    <div class="col-4">
-      <input [(ngModel)]="lineaTemp.nombre" type="text" class="form-control">
+    <div class="col-3">
+      <div class="input-group input-group-sm">
+        <input [(ngModel)]="lineaTemp.nombre" type="text" class="form-control">
+      </div>
     </div>
-    <div class="col">
-      <input [(ngModel)]="lineaTemp.cantidad" type="number" class="form-control">
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <input [(ngModel)]="lineaTemp.cantidad" type="number" class="form-control">
+      </div>
     </div>
     <div class="col-2">
-      <input [(ngModel)]="lineaTemp.valor" type="number" class="form-control">
+      <div class="input-group input-group-sm">
+        <input [(ngModel)]="lineaTemp.valor" type="number" class="form-control">
+      </div>
     </div>
-    <div class="col">
-      <input [(ngModel)]="lineaTemp.descuento1" type="number" class="form-control">
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <input [(ngModel)]="lineaTemp.descuento1" type="number" class="form-control">
+      </div>
     </div>
-    <div class="col">
-      <input [(ngModel)]="lineaTemp.descuento2" type="number" class="form-control">
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <input [(ngModel)]="lineaTemp.descuento2" type="number" class="form-control">
+      </div>
     </div>
-    <div class="col">
-      <select class="form-select" [(ngModel)]="lineaTemp.impuesto">
-        <option *ngFor="let impuesto of impuestos" [value]="impuesto._id">{{ impuesto.name }}</option>
-      </select>
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <select class="form-select" [(ngModel)]="lineaTemp.impuesto">
+          <option *ngFor="let impuesto of impuestos" [value]="impuesto._id">{{ impuesto.name }}</option>
+        </select>
+      </div>
     </div>
-    <div class="col">
-      <select class="form-select" [(ngModel)]="lineaTemp.retencion">
-        <option *ngFor="let retencion of retenciones" value="retencion">{{ retencion }}</option>
-      </select>
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <select class="form-select" [(ngModel)]="lineaTemp.retencion">
+          <option *ngFor="let retencion of retenciones" [value]="retencion._id">{{ retencion.name }}</option>
+        </select>
+      </div>
     </div>
-    <div class="col">
-      <strong><button class="btn btn-secondary" (click)="agregarItem()"> + </button></strong>
+    <div class="col-1">
+      <div class="input-group input-group-sm">
+        <strong><button class="btn btn-secondary" (click)="agregarItem()"> + </button></strong>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="col">
+          <h4>Formas de Pago</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <select class="form-select" [(ngModel)]="formaDePagoElegida">
+            <option *ngFor="let cuentaContable of formasDePago" [value]="cuentaContable._id">{{ cuentaContable.code }} - {{ cuentaContable.name }}</option>
+          </select>
+        </div>
+        <div class="col">
+          <input class="form-control" type="number" [(ngModel)]="totalFormaDePagoTemp">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-4">
+
+      <div class="row border-bottom">
+        <div class="col"><strong>Total Bruto</strong></div>
+        <div class="col text-end">{{ totalBruto | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
+      <div class="row border-bottom">
+        <div class="col"><strong>Descuentos</strong></div>
+        <div class="col text-end">{{ descuentos | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
+      <div class="row border-bottom">
+        <div class="col"><strong>Subtotal</strong></div>
+        <div class="col text-end">{{ subtotal | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
+      <div class="row border-bottom" *ngFor="let imp of impuestosFactura">
+        <div class="col"><strong>{{ imp.impuestoName }}</strong></div>
+        <div class="col text-end">{{ imp.valor | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
+      <div class="row border-bottom">
+        <div class="col"><strong>Total Neto</strong></div>
+        <div class="col text-end">{{ totalNeto | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
+      <div class="row border-bottom" *ngFor="let ret of retencionesFactura">
+        <div class="col"><strong>{{ ret.retencionName }}</strong></div>
+        <div class="col text-end">{{ ret.valor | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
+      <div class="row border-bottom">
+        <div class="col"><strong>Total a Pagar</strong></div>
+        <div class="col text-end">{{ totalPagar | currency:'':'symbol':'1.2-2' }}</div>
+      </div>
+
     </div>
   </div>
 

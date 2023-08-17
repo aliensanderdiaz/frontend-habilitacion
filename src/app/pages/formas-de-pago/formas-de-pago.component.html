@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h3>Formas de Pago</h3>
+    </div>
+    <div class="col-4">
+      <a routerLink="crear-forma-de-pago" class="btn btn-secondary">Crear</a>
+    </div>
+  </div>
+
+  <div class="row alert alert-primary" *ngIf="cargando">
+    <div class="col">
+      <span>Estamos cargando las formas de pago, por favor espere un momento.</span>
+    </div>
+  </div>
+
+  <div class="row alert alert-danger" *ngIf="error">
+    <div class="col">
+      <span>Ocurrió un error inesperado, contacta con el administrador.</span>
+    </div>
+  </div>
+
+  <div class="row alert alert-warning" *ngIf="!cargando && !error && formasDePago.length === 0">
+    <div class="col">
+      <span>No hay formas de pago creadas</span>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="container" *ngIf="!cargando && !error && formasDePago.length > 0">
+  <div class="row border">
+    <div class="col">
+      <strong>Código</strong>
+    </div>
+    <div class="col">
+      <strong>Nombre</strong>
+    </div>
+    <div class="col">
+      <strong>Cuenta Contable</strong>
+    </div>
+  </div>
+
+  <div class="row border" *ngFor="let formaDePago of formasDePago">
+    <div class="col">
+      <span>{{ formaDePago.code }}</span>
+    </div>
+    <div class="col">
+      <span>{{ formaDePago.name }}</span>
+    </div>
+    <div class="col">
+      <span>{{ formaDePago.account.code }} - {{ formaDePago.account.name }}</span>
+    </div>
+  </div>
+</div>

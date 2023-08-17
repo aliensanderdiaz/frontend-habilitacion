@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Crear forma de pago</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Código</span>
+        <input type="text" class="form-control" [(ngModel)]="code">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Nombre</span>
+        <input type="text" class="form-control" [(ngModel)]="name">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Código</span>
+        <select class="form-select" [(ngModel)]="cuentaContableElegida">
+          <option *ngFor="let cuentaContable of cuentasContables" [value]="cuentaContable._id">{{ cuentaContable.code }} - {{ cuentaContable.name }}</option>
+        </select>
+      </div>
+      <div>
+        <button class="btn btn-secondary" (click)="crearFormaDePago()">
+          Crear Forma de Pago
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
