@@ -241,31 +241,19 @@ export class CrearVentaComponent implements OnInit {
           "total": 11900
         }
       ],
-      "lineas": this.lineas,
-      // "lineas": [
-      //   {
-      //     "impuestoIncluido": true,
-      //     "descuento1": 19,
-      //     "descuento2": 0,
-      //     "descuentoEnPorcentaje": true,
-      //     "cantidad": 3,
-      //     "nombre": "Helice",
-      //     "plu": "54538",
-      //     "valor": 123456.79,
-      //     "impuesto": "64beda4135aea612779ae70d"
-      //   },
-      //   {
-      //     "impuestoIncluido": true,
-      //     "descuento1": 10,
-      //     "descuento2": 10,
-      //     "descuentoEnPorcentaje": true,
-      //     "cantidad": 3,
-      //     "nombre": "Helice Metalicas",
-      //     "plu": "54538",
-      //     "valor": 10000,
-      //     "impuesto": "64ac8648755942cbfc5087b0"
-      //   }
-      // ],
+      "lineas": this.lineas.map(
+        linea => {
+          return {
+            descuento1: linea.descuentoIngresado1,
+            descuento2: linea.descuentoIngresado2,
+            cantidad: linea.cantidad,
+            nombre: linea.nombre,
+            plu: linea.plu,
+            valor: linea.valorIngresado,
+            impuesto: linea.impuesto,
+          }
+        }
+      ),
       "resolucion": {
         "numeroDeAutorizacion": "1059898646131",
         "fechaDeInicio": "2023-06-01",

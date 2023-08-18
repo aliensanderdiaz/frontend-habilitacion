@@ -95,7 +95,7 @@
       <span>{{ item.impuestoTarifa }}%</span>
     </div>
     <div class="col-1 border">
-      <span>{{ item.retencionTarifa || 'NA' }}%</span>
+      <span>{{ item.retencionTarifa ? item.retencionTarifa + '%' : 'NA' }}</span>
     </div>
     <div class="col-1 border text-end">
       <span>{{ item.valorUnitarioBruto | currency:'':'symbol':'1.0-0' }}</span>
